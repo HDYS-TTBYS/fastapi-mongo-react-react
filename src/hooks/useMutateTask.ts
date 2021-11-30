@@ -60,6 +60,15 @@ export const useMutateTask = () => {
             )
           );
         }
+
+        const previousTodo = queryClient.getQueryData<Task>([
+          'single',
+          variables.id,
+        ]);
+        if (previousTodo) {
+          queryClient.setQueryData<Task>(['single', variables.id], variables);
+        }
+
         dispatch(resetEditedTask());
       },
       onError: (err: any) => {
